@@ -42,12 +42,17 @@ app.use(`${BASE_PATH}/analytics`, passportAuthenicateJwt, analyticsRoute);
 
 app.use(errorHandler);
 
-app.listen(Env.PORT, async () => {
-  await connectDatabase();
-
-  if (Env.NODE_ENV === "development") {
-    await initialiseCron();
+const startServer = async () => {
+  try {
+    await connectDatabase(); // ensure DB connection before listening
+    initialiseCron();
+    app.listen(Env.PORT, () => {
+      console.log(`🚀 Server running on port ${Env.PORT} in ${Env.NODE_ENV} mode`);
+    });
+  } catch (error) {
+    console.error("❌ Failed to start server:", error);
+    process.exit(1);
   }
+};
 
-  console.log(`Server running on port ${Env.PORT} in ${Env.NODE_ENV} environment`);
-});
+startServer();
