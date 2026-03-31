@@ -24,7 +24,7 @@ export const protectedRoutePaths = [
       { index: true, element: <Account /> }, // Default route
       { path: PROTECTED_ROUTES.SETTINGS, element: <Account /> },
       { path: PROTECTED_ROUTES.SETTINGS_APPEARANCE, element: <Appearance /> },
-      { path: PROTECTED_ROUTES.SETTINGS_BILLING, element: <Billing /> },
+      // { path: PROTECTED_ROUTES.SETTINGS_BILLING, element: <Billing /> },
     ]
   },
 ];
