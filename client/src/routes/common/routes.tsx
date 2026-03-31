@@ -7,7 +7,7 @@ import Reports from "@/pages/reports";
 import Settings from "@/pages/settings";
 import Account from "@/pages/settings/account";
 import Appearance from "@/pages/settings/appearance";
-import Billing from "@/pages/settings/billing";
+// import Billing from "@/pages/settings/billing";
 
 export const authenticationRoutePaths = [
   { path: AUTH_ROUTES.SIGN_IN, element: <SignIn /> },
