@@ -24,7 +24,7 @@ export const reportColumns: ColumnDef<ReportType>[] = [
     header: "Sent Date",
     size: 100,
     cell: ({ row }) => {
-      const date = new Date(row.original.sentDate);
+      const date = new Date(row.original.sent_date);
       return date.toLocaleDateString();
     },
   },

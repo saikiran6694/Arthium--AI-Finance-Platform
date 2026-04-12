@@ -1,9 +1,9 @@
 export type ReportType = {
   period: string;
-  totalIncome: number;
-  totalExpenses: number;
-  availableBalance: number;
-  savingsRate: number;
-  topSpendingCategories: Array<{ name: string; percent: number }>;
+  total_income: number;
+  total_expenses: number;
+  available_balance: number;
+  saving_rate: number;
+  top_spending_categories: Array<{ name: string; percent: number }>;
   insights: string[];
 };

@@ -36,9 +36,9 @@ export const transactionApi = apiClient.injectEndpoints({
         const {
           keyword = undefined,
           type = undefined,
-          recurringStatus = undefined,
-          pageNumber = 1,
-          pageSize = 10,
+          recurring_status = undefined,
+          page_number = 1,
+          page_size = 10,
         } = params;
 
         return {
@@ -47,9 +47,9 @@ export const transactionApi = apiClient.injectEndpoints({
           params: {
             keyword,
             type,
-            recurringStatus,
-            pageNumber,
-            pageSize,
+            recurring_status,
+            page_number,
+            page_size
           },
         };
       },
@@ -73,7 +73,7 @@ export const transactionApi = apiClient.injectEndpoints({
 
     updateTransaction: builder.mutation<void, UpdateTransactionPayload>({
       query: ({ id, transaction }) => ({
-        url: `/transaction/update/${id}`,
+        url: `/transaction/${id}`,
         method: "PUT",
         body: transaction,
       }),
@@ -93,7 +93,7 @@ export const transactionApi = apiClient.injectEndpoints({
 
     deleteTransaction: builder.mutation<void, string>({
       query: (id) => ({
-        url: `/transaction/delete/${id}`,
+        url: `/transaction/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["transactions", "analytics"],

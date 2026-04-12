@@ -27,7 +27,7 @@ const accountFormSchema = z.object({
       message: "Name must be at least 2 characters.",
     })
     .optional(),
-  profilePicture: z.string(),
+  profile_picture: z.string(),
 });
 
 type AccountFormValues = z.infer<typeof accountFormSchema>;
@@ -45,7 +45,7 @@ export function AccountForm() {
     resolver: zodResolver(accountFormSchema),
     defaultValues: {
       name: user?.name || "",
-      profilePicture: user?.profilePicture || "",
+      profile_picture: user?.profile_picture || "",
     },
   });
 
@@ -54,7 +54,7 @@ export function AccountForm() {
 
     const formData = new FormData();
     formData.append("name", values.name || "");
-    if (file) formData.append("profilePicture", file);
+    if (file) formData.append("profile_picture", file);
 
     updateUserMutation(formData)
       .unwrap()
@@ -62,11 +62,13 @@ export function AccountForm() {
         dispatch(
           updateCredentials({
             user: {
-              profilePicture: response.user.profilePicture,
+              profile_picture: response.user.profile_picture,
               name: response.user.name,
             },
           })
         );
+        setAvatarUrl(null);
+        setFile(null);
         toast.success("Account updated successfully");
       })
       .catch((error) => {
@@ -101,7 +103,7 @@ export function AccountForm() {
           <div className="flex items-center gap-4">
             <Avatar className="h-20 w-20">
               <AvatarImage
-                src={avatarUrl || user?.profilePicture || ""}
+                src={avatarUrl || user?.profile_picture || undefined}
                 className="!object-cover !object-center"
               />
               <AvatarFallback className="text-2xl">

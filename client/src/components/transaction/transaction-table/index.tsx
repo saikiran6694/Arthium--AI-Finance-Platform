@@ -37,15 +37,15 @@ const TransactionTable = (props: {
   const { data, isFetching } = useGetAllTransactionsQuery({
     keyword: debouncedTerm,
     type: filter.type,
-    recurringStatus: filter.recurringStatus,
-    pageNumber: filter.pageNumber,
-    pageSize: filter.pageSize,
+    recurring_status: filter.recurringStatus,
+    page_number: filter.pageNumber,
+    page_size: filter.pageSize,
   });
 
   const transactions = data?.transactions || [];
   const pagination = {
-    totalItems: data?.pagination?.totalCount || 0,
-    totalPages: data?.pagination?.totalPages || 0,
+    totalItems: data?.pagination?.total_count || 0,
+    totalPages: data?.pagination?.total_pages || 0,
     pageNumber: filter.pageNumber,
     pageSize: filter.pageSize,
   };

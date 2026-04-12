@@ -8,8 +8,8 @@ interface PercentageChange {
   income: number;
   expenses: number;
   balance: number;
-  prevPeriodFrom: string | null;
-  prevPeriodTo: string | null;
+  prev_period_from: string | null;
+  prev_period_to: string | null;
 }
 
 interface PresetType {
@@ -22,29 +22,29 @@ interface PresetType {
 export interface SummaryAnalyticsResponse {
   message: string;
   stats: {
-    availableBalance: number;
-    totalIncome: number;
-    totalExpenses: number;
-    transactionCount: number;
-    savingRate: {
+    available_balance: number;
+    total_income: number;
+    total_expenses: number;
+    transaction_count: number;
+    saving_rate: {
       percentage: number;
-      expenseRatio: number;
-    };
-    percentageChange: PercentageChange;
-    preset: PresetType;
+      expense_ratio: number;
+    },
+    percentage_change: PercentageChange;
+    preset: PresetType
   };
 }
 
 export interface ChartAnalyticsResponse {
   message: string;
   stats: {
-    chartData: {
+    chart_data: {
       date: string;
       income: number;
       expenses: number;
     }[];
-    totalIncomeCount: number;
-    totalExpenseCount: number;
+    total_income_count: number;
+    total_expense_count: number;
     preset: PresetType;
   };
 }
@@ -52,7 +52,7 @@ export interface ChartAnalyticsResponse {
 export interface ExpensePieChartBreakdownResponse {
   message: string;
   stats: {
-    totalSpent: number;
+    total_spent: number;
     breakdown: {
       name: string;
       value: number;

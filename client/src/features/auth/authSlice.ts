@@ -1,28 +1,30 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface AuthState {
-  accessToken: string | null;
-  expiresAt: number | null;
+  access_token: string | null;
+  expires_at: number | null;
+  refresh_token: string | null;
   user: User | null;
   reportSetting: ReportSetting | null;
 }
 
 interface User {
-  id: number;
+  _id: string;
   name: string;
   email: string;
-  profilePicture: string;
+  profile_picture: string;
 }
 
 interface ReportSetting {
-  userId: string;
+  _id: string;
   frequency?: string;
-  isEnabled: boolean;
+  is_enabled: boolean;
 }
 
 const initialState: AuthState = {
-  accessToken: null,
-  expiresAt: null,
+  access_token: null,
+  expires_at: null,
+  refresh_token: null,
   user: null,
   reportSetting: null,
 };
@@ -31,24 +33,28 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setCredentials: (state, action) => {
-      state.accessToken = action.payload.accessToken;
-      state.expiresAt = action.payload.expiresAt;
-      state.user = action.payload.user;
-      state.reportSetting = action.payload.reportSetting;
-    },
-    updateCredentials: (state, action) => {
-      const { accessToken, expiresAt, user, reportSetting } = action.payload;
+    setCredentials: (state, action: PayloadAction<any>) => {
+      const now = Date.now();
 
-      if (accessToken !== undefined) state.accessToken = accessToken;
-      if (expiresAt !== undefined) state.expiresAt = expiresAt;
-      if (user !== undefined) state.user = { ...state.user, ...user };
-      if (reportSetting !== undefined)
-        state.reportSetting = { ...state.reportSetting, ...reportSetting };
+      state.access_token = action.payload.access_token;
+      state.expires_at = now + action.payload.expires_in;
+      state.refresh_token = action.payload.refresh_token;
+      state.user = action.payload.user;
+      state.reportSetting = action.payload.report_settings;
     },
+
+    updateCredentials: (state, action: PayloadAction<any>) => {
+      const now = Date.now();
+      const { access_token, expires_in } = action.payload;
+
+      if (access_token) state.access_token = access_token;
+      if (expires_in) state.expires_at = now + expires_in;
+    },
+
     logout: (state) => {
-      state.accessToken = null;
-      state.expiresAt = null;
+      state.access_token = null;
+      state.expires_at = null;
+      state.refresh_token = null;
       state.user = null;
       state.reportSetting = null;
     },

@@ -64,7 +64,7 @@ export const transactionColumns: ColumnDef<TransactionType>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "createdAt",
+    accessorKey: "created_at",
     header: ({ column }) => (
       <Button
         variant="ghost"
@@ -74,7 +74,7 @@ export const transactionColumns: ColumnDef<TransactionType>[] = [
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
-    cell: ({ row }) => format(row.getValue("createdAt"), "MMM dd, yyyy"),
+    cell: ({ row }) => format(row.getValue("created_at"), "MMM dd, yyyy"),
   },
   {
     accessorKey: "title",
@@ -163,7 +163,7 @@ export const transactionColumns: ColumnDef<TransactionType>[] = [
     accessorKey: "paymentMethod",
     header: "Payment Method",
     cell: ({ row }) => {
-      const paymentMethod = row.original.paymentMethod;
+      const paymentMethod = row.original.payment_method;
       if (!paymentMethod) return "N/A";
       //remove _
       const paymentMethodWithoutUnderscore = paymentMethod
@@ -185,8 +185,8 @@ export const transactionColumns: ColumnDef<TransactionType>[] = [
     ),
     cell: ({ row }) => {
       const frequency = row.getValue("recurringInterval");
-      const nextDate = row.original?.nextRecurringDate;
-      const isRecurring = row.original?.isRecurring;
+      const nextDate = row.original?.next_recurring_date;
+      const isRecurring = row.original?.is_recurring;
 
       const frequencyMap: FrequencyMapType = isRecurring
         ? {
@@ -238,7 +238,7 @@ export const transactionColumns: ColumnDef<TransactionType>[] = [
 // eslint-disable-next-line react-refresh/only-export-components
 const ActionsCell = ({ row }: { row: any }) => {
   //const isRecurring = row.original.isRecurring;
-  const transactionId = row.original.id;
+  const transactionId = row.original._id;
   const { onOpenDrawer } = useEditTransactionDrawer();
 
   const [duplicateTransaction, { isLoading: isDuplicating }] =

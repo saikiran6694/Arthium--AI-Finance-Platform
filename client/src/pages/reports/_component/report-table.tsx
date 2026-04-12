@@ -12,8 +12,8 @@ const ReportTable = () => {
   const { data, isFetching } = useGetAllReportsQuery(filter);
 
   const pagination = {
-    totalItems: data?.pagination?.totalCount || 0,
-    totalPages: data?.pagination?.totalPages || 0,
+    totalItems: data?.pagination?.total_count || 0,
+    totalPages: data?.pagination?.total_pages || 0,
     pageNumber: filter.pageNumber,
     pageSize: filter.pageSize,
   };

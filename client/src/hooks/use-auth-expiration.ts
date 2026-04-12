@@ -4,44 +4,52 @@ import { logout, updateCredentials } from "@/features/auth/authSlice";
 import { useRefreshMutation } from "@/features/auth/authAPI";
 
 const useAuthExpiration = () => {
-  const {
-    accessToken,
-    expiresAt,
-  } = useTypedSelector((state) => state.auth);
+  const { access_token, expires_at, refresh_token } = useTypedSelector(
+    (state) => state.auth
+  );
+
   const dispatch = useAppDispatch();
-  const [refreshToken] = useRefreshMutation()
+  const [refreshToken] = useRefreshMutation();
 
   useEffect(() => {
+    if (!access_token || !expires_at || !refresh_token) return;
+
     const handleLogout = () => {
-      console.log("Token expired, logging out...");
+      console.log("Session expired → logging out");
       dispatch(logout());
     };
 
     const handleTokenRefresh = async () => {
-        try {
-          const {accessToken, expiresAt} = await refreshToken({}).unwrap();
-          dispatch(updateCredentials({accessToken, expiresAt}));
-          console.log("Token refreshed successfully");
-        } catch (error) {
-          console.error("Token refresh failed, logging out...", error);
-          handleLogout();
-        }
-      };
+      try {
+        const res = await refreshToken({ refresh_token }).unwrap();
 
-    if (accessToken && expiresAt) {
-        const currentTime = Date.now();
-        const timeUntilExpiration = expiresAt - currentTime;
-      if (timeUntilExpiration <= 0) {
-        // Token is already expired
-        handleTokenRefresh()
-      } else {
-        // Set a timeout to log out the user when the token expires
-        const timer = setTimeout(handleLogout, timeUntilExpiration);
-        // Cleanup the timer on component unmount or token change
-        return () => clearTimeout(timer);
+        dispatch(
+          updateCredentials({
+            access_token: res.access_token,
+            expires_in: res.expires_in,
+          })
+        );
+
+        console.log("Token refreshed ✅");
+      } catch (error) {
+        console.error("Refresh failed ❌", error);
+        handleLogout();
       }
+    };
+
+    const now = Date.now();
+
+    const refreshTime = expires_at - now - 60 * 1000;
+
+    if (refreshTime <= 0) {
+      handleTokenRefresh();
+      return;
     }
-  }, [accessToken, dispatch, expiresAt, refreshToken]);
+
+    const timer = setTimeout(handleTokenRefresh, refreshTime);
+
+    return () => clearTimeout(timer);
+  }, [access_token, expires_at, refresh_token, dispatch, refreshToken]);
 };
 
 export default useAuthExpiration;

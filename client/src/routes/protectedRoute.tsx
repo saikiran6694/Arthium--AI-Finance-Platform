@@ -3,9 +3,9 @@ import { Navigate, Outlet } from "react-router-dom";
 import { AUTH_ROUTES } from "./common/routePath";
 
 const ProtectedRoute = () => {
-  const { accessToken, user } = useTypedSelector((state) => state.auth);
+  const { access_token, user } = useTypedSelector((state) => state.auth);
 
-  if (accessToken && user) return <Outlet />;
+  if (access_token && user) return <Outlet />;
 
   return <Navigate to={AUTH_ROUTES.SIGN_IN} replace />;
 };

@@ -27,5 +27,5 @@ export const reportApi = apiClient.injectEndpoints({
 
 export const {
     useGetAllReportsQuery,
-    useUpdateReportSettingMutation
+    useUpdateReportSettingMutation,
 } = reportApi;

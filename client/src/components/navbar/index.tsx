@@ -63,8 +63,9 @@ const Navbar = () => {
 
             {/* Navigation*/}
             <nav className="hidden md:flex items-center gap-x-2 overflow-x-auto">
-              {routes?.map((route) => (
+              {routes?.map((route, index: number) => (
                 <Button
+                  key={index}
                   size="sm"
                   variant="ghost"
                   className={cn(
@@ -88,8 +89,9 @@ const Navbar = () => {
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetContent side="left" className="bg-white">
                 <nav className="flex flex-col gap-y-2 pt-9">
-                  {routes?.map((route) => (
+                  {routes?.map((route, index: number) => (
                     <Button
+                      key={index}
                       size="sm"
                       variant="ghost"
                       className={cn(
@@ -115,7 +117,7 @@ const Navbar = () => {
             <div className="flex items-center space-x-4">
               <UserNav
                 userName={user?.name || ""}
-                profilePicture={user?.profilePicture || ""}
+                profilePicture={user?.profile_picture || ""}
                 onLogout={() => setIsLogoutDialogOpen(true)}
               />
             </div>

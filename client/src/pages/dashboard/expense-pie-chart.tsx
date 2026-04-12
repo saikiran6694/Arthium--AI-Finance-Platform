@@ -42,7 +42,7 @@ const ExpensePieChart = (props: { dateRange?: DateRangeType }) => {
     preset: dateRange?.value,
   });
   const categories = data?.stats?.breakdown || [];
-  const totalSpent = data?.stats?.totalSpent || 0;
+  const totalSpent = data?.stats?.total_spent || 0;
 
   if (isFetching) {
     return <PieChartSkeleton />;

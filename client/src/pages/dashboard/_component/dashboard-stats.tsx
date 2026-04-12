@@ -12,35 +12,35 @@ const DashboardStats = ({ dateRange }: { dateRange?: DateRangeType }) => {
 
   return (
     <div className="flex flex-row items-center">
-      <div className="flex-1 lg:flex-[1] grid grid-cols-1 lg:grid-cols-4 gap-4">
+      <div className="flex-1 lg:flex-[1] grid grid-cols-2 xl:grid-cols-4 gap-4">
         <SummaryCard
           title="Available Balance"
-          value={summaryData?.availableBalance}
+          value={summaryData?.available_balance}
           dateRange={dateRange}
-          percentageChange={summaryData?.percentageChange?.balance}
+          percentageChange={summaryData?.percentage_change?.balance}
           isLoading={isFetching}
           cardType="balance"
         />
         <SummaryCard
           title="Total Income"
-          value={summaryData?.totalIncome}
-          percentageChange={summaryData?.percentageChange?.income}
+          value={summaryData?.total_income}
+          percentageChange={summaryData?.percentage_change?.income}
           dateRange={dateRange}
           isLoading={isFetching}
           cardType="income"
         />
         <SummaryCard
           title="Total Expenses"
-          value={summaryData?.totalExpenses}
+          value={summaryData?.total_expenses}
           dateRange={dateRange}
-          percentageChange={summaryData?.percentageChange?.expenses}
+          percentageChange={summaryData?.percentage_change?.expenses}
           isLoading={isFetching}
           cardType="expenses"
         />
         <SummaryCard
           title="Savings Rate"
-          value={summaryData?.savingRate?.percentage}
-          expenseRatio={summaryData?.savingRate?.expenseRatio}
+          value={summaryData?.saving_rate?.percentage}
+          expenseRatio={summaryData?.saving_rate?.expense_ratio}
           isPercentageValue
           dateRange={dateRange}
           isLoading={isFetching}

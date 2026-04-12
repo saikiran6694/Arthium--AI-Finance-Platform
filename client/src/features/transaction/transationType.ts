@@ -10,17 +10,17 @@ export interface CreateTransactionBody {
   description: string;
   category: string;
   date: string;
-  isRecurring: boolean;
-  recurringInterval?: RecurringIntervalType | null;
-  paymentMethod: string;
+  is_recurring: boolean;
+  recurring_interval?: RecurringIntervalType | null;
+  payment_method: string;
 }
 
 export interface GetAllTransactionParams {
   keyword?: string;
   type?: _TransactionType;
-  recurringStatus?: "RECURRING" | "NON_RECURRING";
-  pageNumber?: number;
-  pageSize?: number;
+  recurring_status?: "RECURRING" | "NON_RECURRING";
+  page_number?: number;
+  page_size?: number;
 }
 
 export interface TransactionType {
@@ -32,14 +32,14 @@ export interface TransactionType {
   description: string;
   category: string;
   date: string;
-  isRecurring: boolean;
-  recurringInterval: RecurringIntervalType | null;
-  nextRecurringDate: string | null;
-  lastProcessed: string | null;
+  is_recurring: boolean;
+  recurring_interval: RecurringIntervalType | null;
+  next_recurring_date: string | null;
+  last_processed: string | null;
   status: string;
-  paymentMethod: string;
-  createdAt: string;
-  updatedAt: string;
+  payment_method: string;
+  created_at: string;
+  updated_at: string;
   id?: string;
 }
 
@@ -47,10 +47,10 @@ export interface GetAllTransactionResponse {
   message: string;
   transactions: TransactionType[];
   pagination: {
-    pageSize: number;
-    pageNumber: number;
-    totalCount: number;
-    totalPages: number;
+    page_size: number;
+    page_number: number;
+    total_count: number;
+    total_pages: number;
     skip: number;
   };
 }
@@ -61,9 +61,9 @@ export interface AIScanReceiptData {
   date: string;
   description: string;
   category: string;
-  paymentMethod: string;
+  payment_method: string;
   type: "INCOME" | "EXPENSE";
-  receiptUrl: string;
+  receip_url: string;
 }
 
 export interface AIScanReceiptResponse {
@@ -88,8 +88,8 @@ export interface BulkTransactionType {
   category: string;
   description: string;
   date: string;
-  paymentMethod: PaymentMethodType;
-  isRecurring: boolean;
+  payment_method: PaymentMethodType;
+  is_recurring: boolean;
 }
 
 export interface BulkImportTransactionPayload {

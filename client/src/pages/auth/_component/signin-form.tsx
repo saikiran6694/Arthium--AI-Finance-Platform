@@ -22,7 +22,7 @@ import { setCredentials } from "@/features/auth/authSlice";
 
 const schema = z.object({
   email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  password: z.string().min(8, "Password must be at least 8 characters"),
 });
 
 type FormValues = z.infer<typeof schema>;
@@ -98,6 +98,14 @@ const SignInForm = ({
                     <Input placeholder="*******" type="password" {...field} />
                   </FormControl>
                   <FormMessage />
+                  <div className="flex items-center justify-end">
+                    <Link
+                      to={AUTH_ROUTES.FORGOT_PASSWORD}
+                      className="text-xs justify-end text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors"
+                    >
+                      Forgot password?
+                    </Link>
+                  </div>
                 </FormItem>
               )}
             />

@@ -58,10 +58,10 @@ const formSchema = z.object({
   date: z.date({
     required_error: "Please select a date.",
   }),
-  paymentMethod: z
+  payment_method: z
     .string()
     .min(1, { message: "Please select a payment method." }),
-  isRecurring: z.boolean(),
+  is_recurring: z.boolean(),
   frequency: z
     .enum([
       _TRANSACTION_FREQUENCY.DAILY,
@@ -72,7 +72,7 @@ const formSchema = z.object({
     .nullable()
     .optional(),
   description: z.string().optional(),
-  receiptUrl: z.string().optional(),
+  receipt_url: z.string().optional(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -106,11 +106,11 @@ const TransactionForm = (props: {
       type: _TRANSACTION_TYPE.INCOME,
       category: "",
       date: new Date(),
-      paymentMethod: "",
-      isRecurring: false,
+      payment_method: "",
+      is_recurring: false,
       frequency: null,
       description: "",
-      receiptUrl: "",
+      receipt_url: "",
     },
   });
 
@@ -122,9 +122,9 @@ const TransactionForm = (props: {
         type: editData.type,
         category: editData.category?.toLowerCase(),
         date: new Date(editData.date),
-        paymentMethod: editData.paymentMethod,
-        isRecurring: editData.isRecurring,
-        frequency: editData.recurringInterval,
+        payment_method: editData.payment_method,
+        is_recurring: editData.is_recurring,
+        frequency: editData.recurring_interval,
         description: editData.description,
       });
     }
@@ -146,11 +146,11 @@ const TransactionForm = (props: {
       type: data.type || _TRANSACTION_TYPE.EXPENSE,
       category: data.category?.toLowerCase() || "",
       date: new Date(data.date),
-      paymentMethod: data.paymentMethod || "",
-      isRecurring: false,
+      payment_method: data.payment_method || "",
+      is_recurring: false,
       frequency: null,
       description: data.description || "",
-      receiptUrl: data.receiptUrl || "",
+      receipt_url: data.receip_url || ""
     });
   };
 
@@ -160,12 +160,12 @@ const TransactionForm = (props: {
       title: values.title,
       type: values.type,
       category: values.category,
-      paymentMethod: values.paymentMethod,
+      payment_method: values.payment_method,
       description: values.description || "",
       amount: Number(values.amount),
       date: values.date.toISOString(),
-      isRecurring: values.isRecurring || false,
-      recurringInterval: values.frequency || null,
+      is_recurring: values.is_recurring || false,
+      recurring_interval: values.frequency || null,
     };
     if (isEdit && transactionId) {
       updateTransaction({ id: transactionId, transaction: payload })
@@ -377,7 +377,7 @@ const TransactionForm = (props: {
             {/* Payment Method */}
             <FormField
               control={form.control}
-              name="paymentMethod"
+              name="payment_method"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Payment Method</FormLabel>
@@ -406,7 +406,7 @@ const TransactionForm = (props: {
 
             <FormField
               control={form.control}
-              name="isRecurring"
+              name="is_recurring"
               render={({ field }) => (
                 <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
                   <div className="space-y-0.5">
@@ -441,7 +441,7 @@ const TransactionForm = (props: {
               )}
             />
 
-            {form.watch("isRecurring") && form.getValues().isRecurring && (
+            {form.watch("is_recurring") && form.getValues().is_recurring && (
               <FormField
                 control={form.control}
                 name="frequency"

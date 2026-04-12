@@ -1,10 +1,20 @@
 export interface User {
-  id: string;
+  _id: string;
   name: string;
   email: string;
-  profilePicture: string;
+  profile_picture: string;
 }
 export interface UpdateUserResponse {
   message: string;
   user: User;
+}
+ 
+export interface ScheduleReportParams {
+  timezone: string;
+  scheduled_time: string;
+}
+ 
+export interface ScheduledReportTimeResponse {
+  scheduled_time: string;
+  timezone: string;
 }

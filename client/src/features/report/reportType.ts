@@ -1,13 +1,11 @@
-
-
 export interface ReportType {
     _id: string;
-    userId: string;
+    user_id: string;
     period: string;
-    sentDate: string;
+    sent_date: string;
     status: string;
-    createdAt: string;
-    updatedAt: string;
+    created_at: string;
+    updated_at: string;
     __v: number;
 }
 
@@ -15,15 +13,14 @@ export interface GetAllReportResponse {
     message: string;
     reports: ReportType[];
     pagination: {
-        pageSize: number;
-        pageNumber: number;
-        totalCount: number;
-        totalPages: number;
+        page_size: number;
+        page_number: number;
+        total_count: number;
+        total_pages: number;
         skip: number;
     }
 }
 
-
 export interface UpdateReportSettingParams {
-    isEnabled: boolean;
+    is_enabled: boolean;
 }
